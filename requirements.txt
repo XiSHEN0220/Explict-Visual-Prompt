@@ -11,7 +11,6 @@ numpy==1.16.4
 opencv_python==3.4.2.16
 packaging==20.4
 Pillow==9.4.0
-pydensecrf==1.0rc2
 PyYAML==6.0
 regex==2020.10.15
 scikit_image==0.16.2

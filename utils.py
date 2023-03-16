@@ -119,20 +119,7 @@ def make_coord(shape, ranges=None, flatten=True):
     return ret
 
 
-def to_pixel_samples(img):
-    """ Convert the image to coord-RGB pairs.
-        img: Tensor, (3, H, W)
-    """
-    # coord = make_coord(img.shape[-2:])
-    # rgb = img.view(3, -1).permute(1, 0)
-    # return coord, rgb
 
-    rgb = img.view(3, -1).permute(1, 0)
-    return rgb, rgb
-
-
-from sklearn.metrics import accuracy_score,f1_score,roc_auc_score,recall_score,precision_score
-import cv2
 def calc_cod(y_pred, y_true):
     batchsize = y_true.shape[0]
 
@@ -141,17 +128,10 @@ def calc_cod(y_pred, y_true):
     metric_SM = sod_metric.Smeasure()
     metric_EM = sod_metric.Emeasure()
     metric_MAE = sod_metric.MAE()
-    # y_pred, y_true = y_pred.permute(0, 2, 3, 1).squeeze(-1), y_true.permute(0, 2, 3, 1).squeeze(-1)
-    # y_pred, y_true = y_pred.permute(0, 2, 3, 1), y_true.permute(0, 2, 3, 1)
     with torch.no_grad():
         assert y_pred.shape == y_true.shape
-        fm, wfm, sm, em, mae = 0, 0, 0, 0, 0
 
-        # y_true = y_true.cpu().numpy()
-        # y_pred = y_pred.cpu().numpy()
         for i in range(batchsize):
-            # true = y_true[i]
-            # pred = y_pred[i]
             true, pred = \
                 y_true[i, 0].cpu().data.numpy() * 255, y_pred[i, 0].cpu().data.numpy() * 255
 
@@ -192,8 +172,6 @@ def calc_f1(y_pred,y_true):
 
     return f1/batchsize, auc/batchsize, np.array(0), np.array(0)
 
-from sklearn.metrics import accuracy_score,f1_score,roc_auc_score,recall_score,precision_score
-import cv2
 def calc_fmeasure(y_pred,y_true):
     batchsize = y_true.shape[0]
 
@@ -265,44 +243,6 @@ def cal_ber(tn, tp, fn, fp):
 
 def cal_acc(tn, tp, fn, fp):
     return (tp + tn) / (tp + tn + fp + fn)
-
-
-import pydensecrf.densecrf as dcrf
-def crf_refine(img, annos):
-    assert img.dtype == np.uint8
-    assert annos.dtype == np.uint8
-    assert img.shape[:2] == annos.shape
-
-    # img and annos should be np array with data type uint8
-
-    EPSILON = 1e-8
-
-    M = 2  # salient or not
-    tau = 1.05
-    # Setup the CRF model
-    d = dcrf.DenseCRF2D(img.shape[1], img.shape[0], M)
-
-    anno_norm = annos / 255.
-
-    n_energy = -np.log((1.0 - anno_norm + EPSILON)) / (tau * _sigmoid(1 - anno_norm))
-    p_energy = -np.log(anno_norm + EPSILON) / (tau * _sigmoid(anno_norm))
-
-    U = np.zeros((M, img.shape[0] * img.shape[1]), dtype='float32')
-    U[0, :] = n_energy.flatten()
-    U[1, :] = p_energy.flatten()
-
-    d.setUnaryEnergy(U)
-
-    d.addPairwiseGaussian(sxy=3, compat=3)
-    d.addPairwiseBilateral(sxy=60, srgb=5, rgbim=img, compat=5)
-
-    # Do the inference
-    infer = np.array(d.inference(1)).astype('float32')
-    res = infer[1, :]
-
-    res = res * 255
-    res = res.reshape(img.shape[:2])
-    return res.astype('uint8')
 
 def _sigmoid(x):
     return 1 / (1 + np.exp(-x))

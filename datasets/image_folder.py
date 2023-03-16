@@ -51,29 +51,6 @@ class ImageFolder(Dataset):
             file = os.path.join(path, filename)
             self.append_file(file)
 
-        # if 'caisa' in path and split_key == 'test':
-        #     set = []
-        #     with open("../caisa/test_split.txt", "r") as f:
-        #         split = f.readlines()
-        #     for i in range(len(split)):
-        #         set.append(split[i].split(' ')[0].split('/')[-1].split('.')[0])
-        #     for filename in filenames:
-        #         if filename.split('.')[0] in set or filename.split('.')[0][:-3] in set:
-        #             file = os.path.join(path, filename)
-        #             self.append_file(file)
-        #
-        # elif 'defocus' in path and split_key == 'train':
-        #     for filename in filenames:
-        #         idx = int(filename.split('.')[0])
-        #         if idx > 600:
-        #             file = os.path.join(path, filename)
-        #             self.append_file(file)
-        #
-        # else:
-        #     for filename in filenames:
-        #         file = os.path.join(path, filename)
-        #         self.append_file(file)
-
     def append_file(self, file):
         if self.cache == 'none':
             self.files.append(file)

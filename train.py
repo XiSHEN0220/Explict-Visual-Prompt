@@ -13,8 +13,6 @@ import datasets
 import models
 import utils
 from test import eval_psnr, batched_predict
-import numpy as np
-import math
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
