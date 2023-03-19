@@ -22,9 +22,27 @@
 <br>
 </div>
 
+## Abstract
+> We consider the generic problem of detecting low-level structures in images, which includes segmenting the manipulated parts, identifying out-of-focus pixels, separating shadow regions, and detecting concealed objects.
+Whereas each such topic has been typically addressed with a domain-specific solution, we show that a unified approach performs well across all of them. 
+We take inspiration from the widely-used pre-training and then prompt tuning protocols in NLP and propose a new visual prompting model, named Explicit Visual Prompting(EVP). 
+Different from the previous visual prompting which is typically a dataset-level implicit embedding, our key insight is to enforce the tunable parameters focusing on the explicit visual content from each individual image, i.e., the features from frozen patch embeddings and the input's high-frequency components.
+The proposed EVP significantly outperforms other parameter-efficient tuning protocols under the same amount of tunable parameters(5.7% extra trainable parameters of each task). EVP also achieves state-of-the-art performances on diverse low-level structure segmentation tasks compared to task-specific solutions. 
+
+
+## Overview
 <p align="center">
   <img width="50%" alt="teaser" src="teaser/teaser.png">
 </p>
+We propose a unified method for four low-level structure segmentation tasks: camouflaged object, forgery, shadow and defocus blur detection (left). 
+Our approach relies on a pre-trained frozen transformer backbone that leverages explicit extracted features, e.g., the frozen embedded features and high-frequency components, to prompt knowledge (right).
+
+
+## Pipeline
+<p align="center">
+  <img width="50%" alt="pipeline" src="teaser/pipeline.png">
+</p>
+We remodulate the features via the HFC Tune and the Embedding Tune. The Adaptor is designed to efficiently obtain prompts. 
 
 ## Environment
 This code was implemented with Python 3.6 and PyTorch 1.8.1. You can install all the requirements via:
@@ -46,10 +64,10 @@ python demo.py --input [INPUT_PATH] --model [MODEL_PATH] --prompt [PROMPT_PATH] 
 ## Quick Start
 1. Download the dataset and put it in ./load.
 2. Download the pre-trained SegFormer backbone.
-    3. Training:
-    ```bash
-    python train.py --config configs/train/segformer/train_segformer_evp_defocus.yaml 
-    ```
+3. Training:
+```bash
+python train.py --config configs/train/segformer/train_segformer_evp_defocus.yaml 
+```
 4. Evaluation:
 ```bash
 python test.py --config configs/test/test_defocus.yaml  --model mit_b4.pth --prompt ./save/_train_segformer_evp_defocus/prompt_epoch_last.pth
@@ -99,11 +117,11 @@ Please find the pre-trained models [here](https://uofmacau-my.sharepoint.com/:f:
 If you find our work useful in your research, please consider citing:
 
 ```
-@article{zhang2022sadtalker,
-  title={SadTalker: Learning Realistic 3D Motion Coefficients for Stylized Audio-Driven Single Image Talking Face Animation},
-  author={Zhang, Wenxuan and Cun, Xiaodong and Wang, Xuan and Zhang, Yong and Shen, Xi and Guo, Yu and Shan, Ying and Wang, Fei},
-  journal={arXiv preprint arXiv:2211.12194},
-  year={2022}
+@article{liu2023evp,
+  title={Explicit Visual Prompting for Low-Level Structure Segmentations},
+  author={Liu, Weihuang and Shen, Xi and Pun, Chi-Man and Cun, Xiaodong},
+  inproceeding={CPVR},
+  year={2023}
 }
 ```
 
