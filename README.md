@@ -118,10 +118,10 @@ Please find the pre-trained models [here](https://uofmacau-my.sharepoint.com/:f:
 If you find our work useful in your research, please consider citing:
 
 ```
-@article{liu2023evp,
+@inproceedings{liu2023evp,
   title={Explicit Visual Prompting for Low-Level Structure Segmentations},
   author={Liu, Weihuang and Shen, Xi and Pun, Chi-Man and Cun, Xiaodong},
-  inproceeding={CPVR},
+  booktitle={CPVR},
   year={2023}
 }
 ```
