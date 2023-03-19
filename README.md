@@ -32,7 +32,7 @@ The proposed EVP significantly outperforms other parameter-efficient tuning prot
 
 ## Overview
 <p align="center">
-  <img width="50%" alt="teaser" src="teaser/teaser.png">
+  <img width="80%" alt="teaser" src="teaser/teaser.png">
 </p>
 We propose a unified method for four low-level structure segmentation tasks: camouflaged object, forgery, shadow and defocus blur detection (left). 
 Our approach relies on a pre-trained frozen transformer backbone that leverages explicit extracted features, e.g., the frozen embedded features and high-frequency components, to prompt knowledge (right).
@@ -40,9 +40,9 @@ Our approach relies on a pre-trained frozen transformer backbone that leverages 
 
 ## Pipeline
 <p align="center">
-  <img width="50%" alt="pipeline" src="teaser/pipeline.png">
+  <img width="40%" alt="pipeline" src="teaser/pipeline.png">
 </p>
-We remodulate the features via the HFC Tune and the Embedding Tune. The Adaptor is designed to efficiently obtain prompts. 
+We remodulate the features via the Embedding Tune and the HFC Tune. The Adaptor is designed to efficiently obtain prompts. 
 
 ## Environment
 This code was implemented with Python 3.6 and PyTorch 1.8.1. You can install all the requirements via:
