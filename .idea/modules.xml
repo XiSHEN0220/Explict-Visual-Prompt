@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DHGAN_torch.iml" filepath="$PROJECT_DIR$/.idea/DHGAN_torch.iml" />
-      <module fileurl="file:///data/CoordFill/.idea/liif.iml" filepath="/data/CoordFill/.idea/liif.iml" />
-    </modules>
-  </component>
-</project>
